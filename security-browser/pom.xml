@@ -15,11 +15,13 @@
         <dependency>
             <groupId>com.aiolos</groupId>
             <artifactId>security-core</artifactId>
-            <version>${security.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- 集群的session管理 -->
         <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session</artifactId>
+            <version>1.3.1.RELEASE</version>
         </dependency>
     </dependencies>
 
