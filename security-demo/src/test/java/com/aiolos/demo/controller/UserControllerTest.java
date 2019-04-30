@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Date;
+
 /**
  * @author Aiolos
  * @date 2019-04-29 13:43
@@ -34,12 +36,40 @@ public class UserControllerTest {
     @Test
     public void whenQuerySuccess() throws Exception {
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/user")
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/user")
                 .param("username", "aiolos")
                 .param("age", "20")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3))
+                .andReturn().getResponse().getContentAsString();
+
+        System.out.println(result);
+    }
+
+    @Test
+    public void whenGetInfoSuccess() throws Exception {
+
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/user/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("aiolos"))
+                .andReturn().getResponse().getContentAsString();
+
+        System.out.println(result);
+    }
+
+    @Test
+    public void whenCreateSuccess() throws Exception {
+
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/user/")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\"username\":\"aiolos\", \"birthday\": "+ new Date().getTime() +"}"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"))
+                .andReturn().getResponse().getContentAsString();
+
+        System.out.println(result);
     }
 
 }
