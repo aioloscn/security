@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -70,6 +72,27 @@ public class UserControllerTest {
                 .andReturn().getResponse().getContentAsString();
 
         System.out.println(result);
+    }
+
+    @Test
+    public void whenUpdateSuccess() throws Exception {
+
+//        Date date = new Date(LocalDateTime.now().plusYears(1).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+        Date date = new Date(LocalDateTime.now().minusYears(1).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+        mockMvc.perform(MockMvcRequestBuilders.put("/user/")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\"id\":\"1\", \"password\": \"123\"}"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("aaa"))
+                .andReturn().getResponse().getContentAsString();
+    }
+
+    @Test
+    public void whenDeleteSuccess() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/user/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 }

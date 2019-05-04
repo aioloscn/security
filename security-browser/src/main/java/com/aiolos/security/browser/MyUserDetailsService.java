@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
  * @author Aiolos
  * @date 2019-04-15 21:53
  */
-@Component
 @Slf4j
+@Component
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
@@ -24,10 +24,11 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        log.info("username -> {}", username);
+        log.info("login username -> {}", username);
 
-        return new User(username, passwordEncoder.encode("123"),
-                true, true, true, false,
+        // TODO 拿出数据库的密码放到encode()中和前端传过来的密码比对
+        return new User(username, passwordEncoder.encode("111"),
+                true, true, true, true,
                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
 }

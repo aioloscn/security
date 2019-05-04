@@ -67,7 +67,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.aiolos.demo.DemoApplication</mainClass>
+                    <mainClass>com.aiolos.DemoApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
