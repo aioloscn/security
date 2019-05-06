@@ -9,6 +9,10 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +30,20 @@ import java.util.stream.Collectors;
 @RequestMapping("/user")
 @Slf4j
 public class UserController {
+
+    @GetMapping("/me")
+    @ApiOperation(value = "获取当前用户信息")
+    public Object getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
+        return userDetails;
+    }
+
+    @GetMapping("/loginData")
+    @ApiOperation(value = "获取当前用户信息，包含登录信息")
+    public Object getAutenticationDetails(Authentication authentication) {
+//        return SecurityContextHolder.getContext().getAuthentication();
+        // springmvc会自动去spring security context中找登录信息
+        return authentication;
+    }
 
     @GetMapping("/error/{id:\\d+}")
     public void userError(String id) {

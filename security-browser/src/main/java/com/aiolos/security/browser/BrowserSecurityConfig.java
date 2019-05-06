@@ -48,7 +48,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
          */
         http.formLogin()
                 .loginPage("/authentication/require")
-                .loginProcessingUrl("authentication/form")
+                .loginProcessingUrl("/authentication/form")
                 .successHandler(aiolosAuthenticationSuccessHandler)
                 .failureHandler(aiolosAuthenticationFailureHandler)
                 .and()

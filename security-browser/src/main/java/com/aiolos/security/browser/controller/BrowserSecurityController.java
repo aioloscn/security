@@ -23,8 +23,8 @@ import java.io.IOException;
  * @author Aiolos
  * @date 2019-05-04 12:08
  */
-@RestController
 @Slf4j
+@RestController
 public class BrowserSecurityController {
 
     /**
