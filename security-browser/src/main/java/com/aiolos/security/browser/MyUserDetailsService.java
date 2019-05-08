@@ -27,7 +27,7 @@ public class MyUserDetailsService implements UserDetailsService {
         log.info("login username -> {}", username);
 
         // TODO 拿出数据库的密码放到encode()中和前端传过来的密码比对
-        return new User(username, passwordEncoder.encode("111"),
+        return new User(username, passwordEncoder.encode("123"),
                 true, true, true, true,
                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }

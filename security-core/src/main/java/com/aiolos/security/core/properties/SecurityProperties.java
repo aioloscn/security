@@ -15,4 +15,6 @@ public class SecurityProperties {
      * 这里的变量名必须和yml配置文件中的一样，否get方法获取不到
      */
     private BrowserProperties browser = new BrowserProperties();
+
+    private ValidateCodeProperties code = new ValidateCodeProperties();
 }
