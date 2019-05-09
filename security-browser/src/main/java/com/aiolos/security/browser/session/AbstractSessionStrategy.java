@@ -83,7 +83,7 @@ public class AbstractSessionStrategy {
 
     protected Object buildResponseContent(HttpServletRequest request) {
 
-        String message = "session已失效";
+        String message = "strategy session已失效";
         if (isConcurrency()) {
             message = message + "，账号已在其他客户端登录";
         }

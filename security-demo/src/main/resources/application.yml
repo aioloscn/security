@@ -12,12 +12,13 @@ server:
   servlet:
     context-path: /
     session:
-      timeout: 600 #seconds  默认30分钟，如果设置小于一分钟会赋值为一分钟
+      timeout: 60 #seconds  默认30分钟，如果设置小于一分钟会赋值为一分钟
 
 aiolos:
   security:
     browser:
       loginPage: /demo-login.html
+      signOutUrl: /demo-login.html
 #      loginType: REDIRECT
     code:
       image:

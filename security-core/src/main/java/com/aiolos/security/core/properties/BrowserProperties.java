@@ -13,7 +13,7 @@ public class BrowserProperties {
     /**
      * 这里的变量名必须和yml配置文件中的一样，否get方法获取不到
      */
-    private String loginPage = "/default-login.html";
+    private String loginPage = "/demo-login.html";
 
     private LoginType loginType = LoginType.JSON;
 

@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.InvalidSessionStrategy;
@@ -47,6 +48,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
+
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -85,7 +89,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
          * 设置session的失效策略
          * 设置最大session数为1，后面登录会让之前的session失效
          * true：当session数量达到最大数量后，阻止后面的登录
-         * 自定义session失效策略
+         * 自定义session并发失效策略
+         * 重新配置logout
+         * logout的请求  spring security 默认为/logout
+         * 配置logout重定向的url logoutSuccessUrl和logoutSuccessHandler互斥
+         * 配置logoutSuccessHandler
+         * 退出后删除cookie
          * 任何请求
          * 匹配到该url不需要身份认证，避免重定向死循环
          * 都需要身份认证
@@ -111,9 +120,17 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .expiredSessionStrategy(sessionInformationExpiredStrategy)
                 .and()
                 .and()
+                .logout()
+                .logoutUrl("/signOut")
+//                .logoutSuccessUrl("/demo-login.html")
+                .logoutSuccessHandler(logoutSuccessHandler)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl(securityProperties.getBrowser().getLoginPage())
+                .and()
                 .authorizeRequests()
                 .antMatchers("/authentication/require",
                         securityProperties.getBrowser().getLoginPage(),
+                        securityProperties.getBrowser().getSignOutUrl(),
                         securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
                         "/code/image",
                         "/session/invalid").permitAll()

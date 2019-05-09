@@ -72,6 +72,6 @@ public class BrowserSecurityController {
     @GetMapping("/session/invalid")
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public SimpleResponse sessionInvalid() {
-        return new SimpleResponse("session已失效");
+        return new SimpleResponse("session/invalid session已失效");
     }
 }
