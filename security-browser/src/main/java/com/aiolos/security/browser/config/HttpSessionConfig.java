@@ -8,7 +8,7 @@ import org.springframework.session.data.redis.config.ConfigureRedisAction;
  * @author Aiolos
  * @date 2019-05-09 16:47
  */
-//@Configuration
+@Configuration
 public class HttpSessionConfig {
 
     /**
