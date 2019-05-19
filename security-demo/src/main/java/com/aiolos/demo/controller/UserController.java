@@ -37,6 +37,11 @@ public class UserController {
         return userDetails;
     }
 
+    @GetMapping("/my")
+    public Object getMyDetails(Authentication user) {
+        return user;
+    }
+
     @GetMapping("/loginData")
     @ApiOperation(value = "获取当前用户信息，包含登录信息")
     public Object getAutenticationDetails(Authentication authentication) {

@@ -24,4 +24,9 @@ aiolos:
       image:
         length: 6
         width: 100
-        url: /me,/user/*
+#        url: /me,/user/*
+#    oauth2:
+#      clients[0]:
+#        clientId: opm
+#        clientSecret: opmsecret
+#        accessTokenValidateSeconds: 3600
