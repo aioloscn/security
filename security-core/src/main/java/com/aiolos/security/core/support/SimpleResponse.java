@@ -1,4 +1,4 @@
-package com.aiolos.security.browser.support;
+package com.aiolos.security.core.support;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

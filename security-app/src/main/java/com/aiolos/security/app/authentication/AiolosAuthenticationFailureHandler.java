@@ -1,4 +1,4 @@
-package com.aiolos.security.browser.authentication;
+package com.aiolos.security.app.authentication;
 
 import com.aiolos.security.core.support.SimpleResponse;
 import com.aiolos.security.core.enums.LoginType;

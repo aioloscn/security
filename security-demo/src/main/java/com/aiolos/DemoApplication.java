@@ -1,8 +1,6 @@
 package com.aiolos;
 
-import com.aiolos.security.browser.BrowserSecurityConfig;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

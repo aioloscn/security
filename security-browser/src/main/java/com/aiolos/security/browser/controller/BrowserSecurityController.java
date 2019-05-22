@@ -1,6 +1,6 @@
 package com.aiolos.security.browser.controller;
 
-import com.aiolos.security.browser.support.SimpleResponse;
+import com.aiolos.security.core.support.SimpleResponse;
 import com.aiolos.security.core.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

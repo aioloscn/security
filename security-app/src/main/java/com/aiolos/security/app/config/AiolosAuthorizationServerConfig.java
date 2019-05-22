@@ -12,16 +12,22 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
+ * 认证服务
  * @author Aiolos
  * @date 2019-05-18 14:28
  */
-//@Configuration
-//@EnableAuthorizationServer
-public class AiolosAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+@Configuration
+@EnableAuthorizationServer
+public class AiolosAuthorizationServerConfig  {
 
     /*@Autowired
     private AuthenticationManager authenticationManager;
@@ -38,6 +44,9 @@ public class AiolosAuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired(required = false)
     private JwtAccessTokenConverter jwtAccessTokenConverter;
 
+    @Autowired(required = false)
+    private TokenEnhancer jwtTokenEnhancer;
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
@@ -45,8 +54,17 @@ public class AiolosAuthorizationServerConfig extends AuthorizationServerConfigur
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
 
-        if (jwtAccessTokenConverter != null) {
-            endpoints.accessTokenConverter(jwtAccessTokenConverter);
+        if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
+
+            TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+            List<TokenEnhancer> enhancers = new ArrayList<>();
+            enhancers.add(jwtTokenEnhancer);    // 添加自定义扩展
+            enhancers.add(jwtAccessTokenConverter); // jwt密签的转换器
+            enhancerChain.setTokenEnhancers(enhancers);
+
+            endpoints
+                    .tokenEnhancer(enhancerChain)
+                    .accessTokenConverter(jwtAccessTokenConverter);
         }
     }
 
@@ -62,6 +80,8 @@ public class AiolosAuthorizationServerConfig extends AuthorizationServerConfigur
 
                 builder.withClient(config.getClientId())
                         .secret(config.getClientSecret())
+                        .redirectUris("http://example.com")
+                        .authorities("ROLE_USER")
                         .accessTokenValiditySeconds(config.getAccessTokenValidateSeconds())
                         .authorizedGrantTypes("refresh_token", "password")
                         .scopes("all", "write", "read");
