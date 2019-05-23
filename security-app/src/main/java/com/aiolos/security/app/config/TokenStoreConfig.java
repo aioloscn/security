@@ -19,8 +19,8 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
  * @author Aiolos
  * @date 2019-05-17 16:54
  */
-//@Configuration
-//@ConditionalOnProperty(prefix = "opm.security.oauth2", name = "storeType", havingValue = "redis")
+@Configuration
+@ConditionalOnProperty(prefix = "opm.security.oauth2", name = "storeType", havingValue = "redis")
 public class TokenStoreConfig {
 
     @Autowired

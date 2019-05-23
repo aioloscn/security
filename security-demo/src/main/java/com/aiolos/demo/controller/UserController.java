@@ -3,12 +3,17 @@ package com.aiolos.demo.controller;
 import com.aiolos.demo.dto.User;
 import com.aiolos.demo.dto.bo.UserQueryConditionBO;
 import com.aiolos.demo.exception.UserNotExistException;
+import com.aiolos.security.core.properties.SecurityProperties;
 import com.fasterxml.jackson.annotation.JsonView;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +37,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class UserController {
 
+    @Autowired
+    private SecurityProperties securityProperties;
+
     @GetMapping("/me")
     @ApiOperation(value = "获取当前用户信息")
     public Object getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
@@ -38,7 +47,17 @@ public class UserController {
     }
 
     @GetMapping("/my")
-    public Object getMyDetails(Authentication user) {
+    public Object getMyDetails(Authentication user, HttpServletRequest request) throws Exception {
+
+        String header = request.getParameter("Authorization");
+        String token = StringUtils.substringAfter(header, "hearer ");
+
+        Claims claims = Jwts.parser().setSigningKey(securityProperties.getOauth2().getJwtSigningKey().getBytes("UTF-8"))
+                .parseClaimsJws(token).getBody();
+
+        String company = (String) claims.get("company");
+        log.info("Authorization body enhancer -> {}", company);
+
         return user;
     }
 

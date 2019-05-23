@@ -27,9 +27,9 @@ import java.util.List;
  */
 @Configuration
 @EnableAuthorizationServer
-public class AiolosAuthorizationServerConfig  {
+public class AiolosAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    /*@Autowired
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -80,12 +80,11 @@ public class AiolosAuthorizationServerConfig  {
 
                 builder.withClient(config.getClientId())
                         .secret(config.getClientSecret())
-                        .redirectUris("http://example.com")
-                        .authorities("ROLE_USER")
                         .accessTokenValiditySeconds(config.getAccessTokenValidateSeconds())
-                        .authorizedGrantTypes("refresh_token", "password")
+                        .authorizedGrantTypes("refresh_token", "password", "authorization_code")
+                        .refreshTokenValiditySeconds(2592000)
                         .scopes("all", "write", "read");
             }
         }
-    }*/
+    }
 }

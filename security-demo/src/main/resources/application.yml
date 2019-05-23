@@ -30,8 +30,8 @@ aiolos:
         clientId: opm
         clientSecret: opmsecret
         accessTokenValidateSeconds: 3600
-security:
-  oauth2:
-    client:
-      client-id: opm
-      client-secret: opmsecret
+#security:
+#  oauth2:
+#    client:
+#      client-id: opm
+#      client-secret: opmsecret
