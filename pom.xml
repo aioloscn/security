@@ -14,6 +14,7 @@
         <module>security-browser</module>
         <module>security-app</module>
         <module>security-demo</module>
+        <module>security-sso</module>
     </modules>
 
     <parent>
