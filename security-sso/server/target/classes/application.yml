@@ -2,7 +2,3 @@ server:
   port: 8001
   servlet:
     context-path: /server
-#spring:
-#  security:
-#    user:
-#      password: 123

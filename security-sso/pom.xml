@@ -9,12 +9,22 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.aiolos</groupId>
     <artifactId>security-sso</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>server</module>
         <module>client1</module>
+        <module>client2</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+            <version>2.0.1.RELEASE</version>
+        </dependency>
+    </dependencies>
 
 </project>
