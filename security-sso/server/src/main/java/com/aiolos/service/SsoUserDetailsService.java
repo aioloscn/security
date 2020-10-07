@@ -1,4 +1,4 @@
-package com.aiolos.sso.server;
+package com.aiolos.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -9,10 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-/**
- * @author Aiolos
- * @date 2019-05-25 11:04
- */
 @Component
 public class SsoUserDetailsService implements UserDetailsService {
 
@@ -20,10 +16,8 @@ public class SsoUserDetailsService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
-        return new User(username, passwordEncoder.encode("123"),
-                true, true, true, true,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin, ROLE_USER"));
+        return new User( s, passwordEncoder.encode("123456"), AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_NORMAL,ROLE_MEDIUM"));
     }
 }
