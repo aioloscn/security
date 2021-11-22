@@ -53,6 +53,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        // 访问认证服务器的tokenKey的时候需要经过身份认证，默认是 denyAll()
+        // tokenKey就是下面配置的 testKey，应用拿到JWT解析的时候需要验证签名，应用就通过"身份认证"去拿这个签名密钥
         security.tokenKeyAccess("isAuthenticated()");
     }
 
@@ -64,6 +66,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter(){
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        // 生成密钥用到的签名
         converter.setSigningKey("testKey");
         return converter;
     }

@@ -6,11 +6,11 @@ security:
     client:
       client-id: client2
       client-secret: clientSecret2
-      user-authorization-uri: ${oauth2.uri}/authorize
-      access-token-uri: ${oauth2.uri}/token
+      user-authorization-uri: ${oauth2.uri}/authorize # 请求需要身份认证的时候，跳转到认证服务器的地址
+      access-token-uri: ${oauth2.uri}/token  # 认证服务器返回授权码以后，请求令牌的地址
     resource:
       jwt:
-        key-uri: ${oauth2.uri}/token_key
+        key-uri: ${oauth2.uri}/token_key  # 应用走完整个认证流程，解析时获取验证JWT的密钥的地址，访问整个地址的时候会带上 client-id, client-secret，认证服务器就知道是哪个应用要密钥了
 server:
   port: 8003
   servlet:
