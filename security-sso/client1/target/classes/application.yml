@@ -3,11 +3,11 @@ security:
     client:
       client-id: client1
       client-secret: clientSecret1
-      user-authorization-uri: http://127.0.0.1:8001/server/oauth/authorize
-      access-token-uri: http://127.0.0.1:8001/server/oauth/token
+      user-authorization-uri: http://127.0.0.1:8001/server/oauth/authorize # 请求需要身份认证的时候，跳转到认证服务器的地址
+      access-token-uri: http://127.0.0.1:8001/server/oauth/token  # 认证服务器返回授权码以后，请求令牌的地址
     resource:
       jwt:
-        key-uri: http://127.0.0.1:8001/server/oauth/token_key
+        key-uri: http://127.0.0.1:8001/server/oauth/token_key  # 应用走完整个认证流程，解析时获取验证JWT的密钥的地址，访问整个地址的时候会带上 client-id, client-secret，认证服务器就知道是哪个应用要密钥了
 server:
   port: 8002
   servlet:
